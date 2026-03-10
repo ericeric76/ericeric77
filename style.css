@@ -1,0 +1,1119 @@
+:root { 
+  --bg: #f4f7ff;
+  --text: #1d1d1d;
+  /* Card normal */
+  --card: rgba(255, 255, 255, 0.75);
+  /* Card saat di-hover (lebih tebal/solid) */
+  --card-hover: rgba(255, 255, 255, 0.95);
+  --border: rgba(0, 0, 0, 0.08);
+  --primary: #4f46e5;
+  --secondary: #06b6d4;
+  --shadow: 0 10px 30px rgba(0,0,0,0.12);
+  --shadow-hover: 0 15px 35px rgba(79, 70, 229, 0.18);
+}
+
+:root {
+  --sidebar-bg: #dbeafe;        /* kiri */
+  --sidebar-right-bg: #dbeafe;  /* kanan */
+}
+
+body.dark {
+  --bg: #0b1220;
+  --text: #f5f5f5;
+  --card: rgba(30, 41, 59, 0.75);
+  --card-hover: rgba(30, 41, 59, 0.95);
+  --border: rgba(255, 255, 255, 0.12);
+  --primary: #818cf8;
+  --secondary: #22d3ee;
+  --shadow: 0 10px 30px rgba(0,0,0,0.4);
+  --shadow-hover: 0 15px 35px rgba(129, 140, 248, 0.25);
+}
+
+body.dark {
+  --sidebar-bg: rgba(30, 41, 59, 0.9);        /* kiri gelap */
+  --sidebar-right-bg: rgba(30, 41, 59, 0.9);  /* kanan gelap */
+}
+
+body.dark .bar {
+  background: rgba(255, 255, 255, 0.15); /* lebih jelas di dark mode */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* ===============================
+   BASE & LAYOUT
+================================= */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.container{
+  max-width:1050px;
+  margin-left:280px;
+  margin-right:280px; /* ruang untuk sidebar kanan */
+  padding:25px;
+}
+
+/* FIX SCROLL KHUSUS HEADER STICKY */
+#beranda,
+#profil,
+#pendidikan,
+#tentang,
+#skill,
+#proyek,
+#kontak {
+  scroll-margin-top: 125px;
+}
+
+/* ===============================
+   HEADER & NAVIGATION
+================================= */
+/* --- 1. Perbaikan Header --- */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1001; /* Pastikan di atas segalanya */
+  height: 60px;  /* Kita kunci tingginya agar pasti */
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.7);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px 0 0; /* Padding kiri 0 agar logo mulai dari ujung kiri */
+  transition: background-color 0.4s ease;
+}
+
+/* --- 2. Perbaikan Logo (Pusatkan ke Sidebar) --- */
+.logo {
+  /* ... kode lainnya tetap ... */
+  width: 250px;
+  justify-content: center;
+  
+  /* Geser sedikit ke kiri (sesuaikan angkanya) */
+  margin-left: -8px; 
+}
+
+/* --- 3. Perbaikan Sidebar (Agar Menempel ke Header) --- */
+.sidebar-right {
+  width: 250px;
+  height: calc(100vh - 60px); /* Kurangi dengan tinggi header baru (60px) */
+  position: fixed;
+  top: 60px; /* Harus SAMA dengan tinggi header agar tidak ada celah */
+  background: var(--sidebar-bg);
+  z-index: 1000;
+  overflow-y: auto;
+  transition: background-color 0.4s ease;
+}
+
+/* Sesuaikan juga container agar tidak tertutup */
+.container {
+  max-width: 1050px;
+  margin-left: 250px;  /* Sesuaikan lebar sidebar */
+  margin-right: 250px; 
+  padding: 25px;
+  margin-top: 10px;    /* Beri jarak sedikit dari header */
+}
+
+body.dark header {
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Styling Menu & Kontak agar Rata Tengah */
+.nav-list {
+  list-style: none;
+  padding: 0;
+  text-align: center; /* Kunci: membuat teks jadi rata tengah */
+}
+
+.nav-list li a {
+  display: block;
+  padding: 10px 0;
+  color: var(--text);
+  text-decoration: none;
+  
+  /* UBAH INI: Turunkan ketebalan menjadi 400 atau 500 */
+  font-weight: 400; 
+  
+  transition: 0.3s;
+}
+
+/* Opsional: Efek hover jadi lebih elegan */
+.nav-list li a:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--primary); /* Teks berubah warna saat disentuh */
+}
+
+/* Judul Section juga dibuat rata tengah */
+.nav-section h3 {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 25px;
+  color: #666;
+  text-transform: uppercase;
+}
+
+/* EFEK HOVER NAVIGASI */
+nav a:hover {
+  background: rgba(79,70,229,0.15);
+  color: var(--primary);
+  letter-spacing: 0.5px;
+}
+
+nav a.active {
+  background: rgba(79,70,229,0.20);
+  color: var(--primary);
+}
+
+.toggle-btn {
+  cursor: pointer;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  color: white;
+  font-weight: bold;
+  font-size: 13px;
+  z-index: 10;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.toggle-btn:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+/* ===============================
+   CARDS & HOVER EFFECTS
+================================= */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 22px;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease; /* Transisi halus untuk semua perubahan */
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  /* ... kode lainnya ... */
+  transition: all 0.4s ease; /* Pastikan ini sudah 0.4s */
+}
+
+/* EFEK HOVER KARTU */
+.card:hover {
+  transform: translateY(-5px);
+  background: var(--card-hover);
+  border-color: var(--primary);
+  
+  /* Glow merata di sekeliling kartu, sedikit lebih tebal dari bar */
+  box-shadow: 0 0 12px 3px rgba(79, 70, 229, 0.4);
+}
+
+.section-title {
+  font-size: 24px;
+  margin: 55px 0 25px; 
+  text-align: center;
+}
+
+/* ===============================
+   HERO SECTION (Atas & Bawah)
+================================= */
+.hero-top {
+  margin-top: 25px;
+}
+
+.profile-full {
+  width: 100%;
+}
+
+.profile-box {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Styling untuk Foto Banner di Beranda */
+.hero-photo {
+  width: 100%;           /* Mengikuti lebar kartu */
+  height: 300px;         /* Kamu bisa ubah angka ini jadi lebih kecil (misal 250px) */
+  object-fit: cover;     /* Agar foto tidak gepeng */
+  object-position: center 30%; /* Mengatur fokus foto agar tidak terpotong wajahnya */
+  border-radius: 18px;
+  display: block;
+}
+
+/* Pastikan kartu pembungkusnya juga rapi */
+.hero-photo-card {
+  padding: 0 !important; /* Menghilangkan padding agar foto full memenuhi card */
+  overflow: hidden;
+}
+
+/* EFEK HOVER FOTO PROFIL ATAS */
+.profile-box img {
+  width: 125px; 
+  height: 125px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 15%;
+  border: 4px solid rgba(79,70,229,0.4);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.profile-box img:hover {
+  transform: scale(1.08) rotate(3deg);
+  border-color: var(--primary);
+}
+
+.profile-info h2 {
+  font-size: 30px;
+  margin-bottom: 4px;
+}
+
+.profile-info small {
+  font-size: 18px;
+  opacity: 0.85;
+  font-weight: 500;
+}
+
+/* Grid dihapus jika kamu pakai struktur HTML yang baru (Hero ringkas), 
+   tapi tetap disisakan untuk berjaga-jaga */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.info-item {
+  padding: 12px 15px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.4);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  min-height: 65px;
+  line-height: 1.4;
+  transition: background 0.3s ease;
+}
+
+body.dark .info-item {
+  background: rgba(30,41,59,0.5);
+}
+
+.info-item b {
+  margin-right: 5px;
+  white-space: nowrap;
+}
+
+/* HERO BAWAH (Tentang Saya / Halo) */
+.hero-bottom {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 25px;
+  margin-top: 18px;
+  align-items: stretch;
+}
+
+.hero-photo-card {
+  width: 100%;
+  height: 300px;       /* Sesuaikan tinggi card */
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+}
+
+
+
+.vertical-photo-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.vertical-photo {
+  width: 100%;
+  height: 100%;
+  max-height: 330px;
+  object-fit: cover;
+  object-position: center 45%; 
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  transition: transform 0.4s ease;
+}
+
+.vertical-photo:hover {
+  transform: scale(1.03);
+}
+
+.halo-card h1 {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.halo-card p {
+  font-size: 15px;
+  opacity: 0.88;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.mini-text {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 14px;
+}
+
+.badge {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 10px 14px;
+  background: rgba(6, 182, 212, 0.15);
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ===============================
+   PROFIL SAYA (KONSISTEN DENGAN KARTU LAIN)
+================================= */
+/* Cari bagian ini dan ubah ke 0.4s */
+/* GABUNGKAN DAN GANTI .profil-table td MENJADI INI SAJA: */
+.profil-table td {
+  padding: 18px;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  color: var(--text);
+  /* Tambahkan border-color agar garis bawahnya juga sinkron 0.4s */
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+/* Hapus efek hover pada profil-table agar tidak double dengan card */
+.profil-table:hover {
+  transform: none; 
+  box-shadow: none;
+  border-color: transparent;
+}
+
+.profil-table td {
+  padding: 18px;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  color: var(--text);
+  transition: background-color 0.3s ease;
+}
+
+/* Menghapus border bawah pada baris terakhir agar tidak merusak border-radius */
+.profil-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Label (kolom pertama) dibuat sedikit lebih tebal agar rapi */
+.profil-table td:first-child {
+  font-weight: 600;
+  width: 30%; /* Mengunci lebar kolom label agar sejajar */
+}
+
+/* Efek hover pada baris tabel */
+.profil-table tr:hover td {
+  background-color: rgba(79, 70, 229, 0.05);
+}
+
+/* Pastikan tabel punya transisi yang sama dengan body */
+.education-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card); /* Ini mengikuti variabel :root */
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  text-align: center;
+  
+  /* TAMBAHKAN INI */
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+}
+
+/* Juga tambahkan transisi pada th dan td */
+.education-table th, 
+.education-table td {
+  padding: 18px;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  color: var(--text);
+  
+  /* TAMBAHKAN INI */
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+}
+
+/* HILANGKAN garis kanan di kolom paling terakhir agar tidak dobel dengan border luar */
+.education-table th:last-child, 
+.education-table td:last-child {
+  border-right: none;
+}
+
+/* HILANGKAN garis bawah di baris paling terakhir agar tidak dobel dengan border luar */
+.education-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Menambahkan garis kiri secara eksplisit jika masih terasa tipis */
+.education-table th:first-child, 
+.education-table td:first-child {
+  border-left: none; /* Sudah dicover oleh border utama tabel */
+}
+
+/* Efek hover pada baris juga dibuat sangat tipis agar tetap elegan */
+.profil-table tr:hover, 
+.education-table tr:hover {
+  background: rgba(0, 0, 0, 0.02); 
+  transition: 0.3s;
+}
+
+/* ===============================
+   PENDIDIKAN SAYA
+================================= */
+
+.education-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card);
+  border: 1px solid black;   /* garis luar sama dengan garis dalam */
+  border-radius: 18px;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* HEADER */
+.education-table th {
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  color: white;
+  font-weight: bold;
+  padding: 18px;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+/* ISI TABEL */
+.education-table td {
+  padding: 18px;
+  color: var(--text);
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+/* HAPUS GARIS KANAN KOLOM TERAKHIR */
+.education-table th:last-child,
+.education-table td:last-child {
+  border-right: none;
+}
+
+/* HAPUS GARIS BAWAH BARIS TERAKHIR */
+.education-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ZEBRA ROW (biar enak dibaca) */
+.education-table tbody tr:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+body.dark .education-table tbody tr:nth-child(even) {
+  background: rgba(255,255,255,0.04);
+}
+
+/* HOVER EFFECT */
+.education-table tbody tr:hover {
+  background: rgba(79,70,229,0.08);
+  transition: 0.3s;
+}
+
+/* ===============================
+   SKILLS & PROJECTS
+================================= */
+.skills {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.skill label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px; /* Jarak teks ke bar di bawahnya (ditingkatkan drastis) */
+}
+
+/* 1. Memberi jarak antar blok skill (turun sedikitttt saja) */
+.skill-item {
+  margin-bottom: 8px; /* Jarak antar blok skill dibuat tipis */
+  display: block;
+}
+
+/* 2. Mengatur tulisan HTML s/n MySQL agar turun sedikitttt */
+/* GANTI BAGIAN INI: Mengatur tulisan HTML s/d MySQL */
+.skill-item p {
+  /* Hapus baris 'margin-top: 4px;' yang kecil dan tidak perlu ini */
+  margin-bottom: 10px; /* Jarak teks ke bar di bawahnya (ditingkatkan drastis) */
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+/* 3. Penyesuaian Bar (Opsional agar lebih ramping) */
+.bar {
+  height: 8px; /* Bar dibuat sedikit lebih tipis agar tidak terlihat gemuk/mepet */
+  width: 100%;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  transition: width 1.5s ease-out; /* Transisi dipindah ke JS atau dibuat spesifik width */
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.project-card h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.tag {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+  background: rgba(79,70,229,0.15);
+}
+
+/* ===============================
+   KONTAK FORM
+================================= */
+#kontak form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+#kontak input, 
+#kontak textarea {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* EFEK FOKUS PADA INPUT */
+#kontak input:focus, 
+#kontak textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 8px rgba(79, 70, 229, 0.3);
+}
+
+body.dark #kontak input, 
+body.dark #kontak textarea {
+  background: rgba(30, 41, 59, 0.5);
+  color: white;
+}
+
+#kontak textarea {
+  height: 120px;
+  resize: none;
+}
+
+#kontak .send-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+#kontak .send-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+}
+
+/* ===============================
+   FOOTER & RESPONSIVE
+================================= */
+footer {
+  text-align: center;
+  padding: 25px;
+  opacity: 0.75;
+  font-size: 13px;
+  margin-top: 40px;
+}
+
+@media(max-width: 900px) {
+  nav {
+    position: static;
+    transform: none;
+    margin: 10px auto;
+    width: 100%;
+    justify-content: center;
+    order: 3;
+    flex-wrap: wrap;
+  }
+
+  header {
+    flex-wrap: wrap;
+  }
+
+  .hero-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .vertical-photo {
+    max-height: 400px;
+  }
+
+  .skills, .projects {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===============================
+   ANIMATION SAAT HALAMAN DIBUKA
+================================= */
+
+.fade-in-down {
+  opacity: 0;
+  transform: translateY(-30px);
+  animation: fadeDown 0.8s ease forwards;
+}
+
+@keyframes fadeDown {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Delay supaya muncul satu-satu dari atas ke bawah */
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 0.8s; }
+.delay-5 { animation-delay: 1s; }
+.delay-6 { animation-delay: 1.2s; }
+.delay-7 { animation-delay: 1.4s; }
+.delay-8 { animation-delay: 1.6s; }
+
+/* ===============================
+   LAYOUT SIDEBAR
+================================= */
+
+.layout{
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 250px;
+  height: calc(100vh - 70px);
+  padding: 25px;
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 60px;
+  left: 0;
+  overflow-y: auto;
+  background: var(--sidebar-bg);
+  z-index: 1000; /* Tambahkan ini agar tidak tertutup elemen lain */
+}
+
+.sidebar-profile{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+/* Efek foto profil di sidebar agar sama dengan kartu lain */
+.sidebar-profile img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 20%;
+  margin-bottom: 10px;
+  
+  /* Tambahkan transisi agar mulus */
+  transition: all 0.4s ease;
+  border: 3px solid transparent; /* Border transparan awal */
+}
+
+/* Saat di-hover, foto keangkat dan muncul glow */
+.sidebar-profile img:hover {
+  transform: translateY(-5px) scale(1.05); /* Sedikit naik dan membesar */
+  border-color: var(--primary);          /* Border berubah warna primary */
+  
+  /* Glow ungu yang konsisten dengan kartu lainnya */
+  box-shadow: 0 0 12px 3px rgba(79, 70, 229, 0.4); 
+}
+
+/* Jika ingin glow-nya lebih mantap saat dark mode */
+body.dark .sidebar-profile img:hover {
+  box-shadow: 0 0 15px 4px rgba(129, 140, 248, 0.5);
+}
+
+/* Untuk Nama (Eric) - Tetap Bold */
+/* Kita buat lebih spesifik agar menang dari aturan lain */
+/* Sidebar Kiri & Kanan */
+.sidebar, 
+.sidebar-right {
+  width: 250px;
+  height: calc(100vh - 60px);
+  position: fixed;
+  top: 60px;
+  background: var(--sidebar-bg); /* Mengikuti variabel */
+  border-right: 1px solid var(--border); /* Menambahkan border agar bisa transisi */
+  border-left: 1px solid var(--border);  /* Menambahkan border agar bisa transisi */
+  overflow-y: auto;
+  z-index: 1000;
+  
+  /* PENTING: Transisi yang seragam */
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+/* Untuk Mahasiswa Sistem Informasi - Tipis & Normal */
+/* GANTI .sidebar-profile p MENJADI SEPERTI INI: */
+.sidebar-profile p {
+  font-size: 14px;
+  font-weight: 600; 
+  color: var(--text); 
+  opacity: 1; 
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+  
+  /* Garis dipastikan hilang */
+  border-bottom: none; 
+  
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+/* Untuk Judul Navigasi */
+.menu-title {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  /* TAMBAHKAN INI: Agar perubahan warna teks seirama dengan body */
+  transition: color 0.4s ease; 
+}
+
+/* Untuk Judul Kontak */
+.sidebar-contact-title {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  /* TAMBAHKAN INI: Agar sinkron dengan yang lain */
+  transition: color 0.4s ease; 
+}
+
+.sidebar-menu{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.sidebar-menu a {
+  text-decoration: none;
+  color: var(--text);
+  padding: 8px;
+  border-radius: 6px;
+  transition: 0.3s;
+  text-align: center;
+  
+  /* UBAH INI: Turunkan dari 600 menjadi 400 */
+  font-weight: 400; 
+  
+  display: block;
+}
+
+.sidebar-contact{
+  margin-top:10px;
+}
+
+.sidebar-contact a{
+  text-decoration:none;
+  color:var(--text);
+  display:block;
+  text-align:center;
+  padding:6px;
+  font-weight:600;
+}
+
+.sidebar-divider{
+  height:3px;
+  background:rgba(0,0,0,0.35);
+  margin:18px 0;
+}
+
+.sidebar-contact-title{
+  text-align:center;
+  font-size:15px;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:10px;
+}
+
+.sidebar-menu a:hover{
+  background:rgba(79,70,229,0.15);
+  color:var(--primary);
+}
+
+/* ============================================================
+   KONTAK: MERAPAT KE TENGAH (FIX)
+   ============================================================ */
+
+.sidebar-contact {
+  margin-top: 10px;
+  /* Kunci: Gunakan Flex untuk kontrol jarak yang presisi */
+  display: flex;
+  justify-content: center; /* Memastikan grup ikon ada di tengah sidebar */
+  align-items: center;
+  gap: 12px; /* <--- UBAH ANGKA INI: Semakin kecil, semakin rapat */
+}
+
+.sidebar-contact a {
+  background: none !important;
+  border: none !important;
+  display: inline-flex; /* Agar link membungkus ikon dengan pas */
+  text-decoration: none;
+}
+
+.sidebar-contact a i {
+  /* Reset ukuran agar tidak ada kotak 'hantu' */
+  width: auto !important; 
+  height: auto !important;
+  line-height: 1 !important;
+  
+  /* Hapus margin manual agar tidak tabrakan dengan 'gap' */
+  margin: 0 !important; 
+  font-size: 28px;
+  
+  background: transparent !important;
+  box-shadow: none !important;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+/* Efek Hover: Tetap dengan glow ungu tanpa kotak */
+.sidebar-contact a:hover i {
+  transform: translateY(-5px);
+  filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.8));
+}
+
+/* SIDEBAR KANAN */
+
+.sidebar-right {
+  width: 250px;
+  height: calc(100vh - 70px);
+  padding: 25px;
+  border-left: 1px solid var(--border);
+  position: fixed;
+  top: 60px;
+  right: 0;
+  overflow-y: auto;
+  background: var(--sidebar-right-bg);
+  z-index: 1000; /* Tambahkan ini juga */
+}
+
+.sidebar-right h3{
+text-align:center;
+margin-bottom:10px;
+}
+
+/* Tambahkan di bagian CSS sidebar */
+.sidebar-right {
+  transition: background-color 0.4s ease; /* sama dengan body */
+}
+
+.hobi-list{
+list-style:none;
+padding:0;
+text-align:center;
+}
+
+.hobi-list li{
+margin:6px 0;
+}
+
+.quote-card p{
+text-align:center;
+font-style:italic;
+margin-top:5px;
+}
+
+.right-divider {
+  height: 3px;
+  background: #bcd7f5;
+  margin: 25px 0;   /* naikkan sedikit supaya lebih lega */
+  border-radius: 2px;
+}
+
+.right-card {
+  margin-top: 5px;   /* sedikit jarak atas */
+  margin-bottom: 15px; /* sedikit jarak bawah agar isi tidak menempel ke garis */
+
+}
+
+.right-divider{
+margin:20px 0;
+}
+
+.skill-percent{
+float:right;
+font-size:13px;
+opacity:0.8;
+}
+
+.skill-percent{
+float:right;
+font-size:13px;
+opacity:0.9;
+font-weight:600;
+}
+
+/* Track bar untuk proyek, hobi, funfact (tidak terkait persentase) */
+/* Track bar untuk proyek, hobi, funfact, skill */
+/* Bagian skill tetap kiri */
+.sidebar-right .right-card.skill-card {
+  text-align: left; /* skill tetap kiri */
+}
+
+/* Track bar untuk proyek, hobi, funfact, quote tetap center */
+/* 1. Tambahkan transisi agar gerakan naik & glow-nya halus */
+/* Styling dasar untuk tiap baris */
+.right-track-bar {
+  /* Hapus height: 32px atau height apa pun yang kamu pakai sebelumnya */
+  height: auto; 
+  
+  /* Gunakan padding untuk memberi ruang napas atas-bawah */
+  padding: 12px 15px; 
+  
+  /* Biar teks yang panjang otomatis turun ke bawah (wrap) */
+  word-wrap: break-word;
+  white-space: normal;
+  
+  /* Properti lainnya tetap sama biar konsisten */
+  background: rgba(0,0,0,0.05);
+  border-radius: 999px; /* Atau sesuaikan radiusnya */
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* EFEK SAAT KURSOR DIARAHKAN (HOVER) */
+.right-track-bar:hover {
+  transform: translateY(-3px); /* Tetap keangkat sedikit */
+  background: var(--card-hover);
+  border-color: var(--primary);
+  
+  /* Glow merata di semua sisi (0 0), blur pendek (8px) */
+  box-shadow: 0 0 8px 2px rgba(79, 70, 229, 0.5); 
+  cursor: pointer;
+}
+
+/* Untuk Dark Mode agar warna glow lebih solid tapi tetap pendek */
+body.dark .right-track-bar:hover {
+  box-shadow: 0 0 10px 2px rgba(129, 140, 248, 0.6);
+}
+
+/* Tambahan: Warna teks berubah jadi ungu saat hover */
+.right-track-bar:hover span {
+  color: var(--primary);
+  transition: color 0.3s ease;
+}
+
+/* Penyesuaian untuk Dark Mode agar glow lebih terlihat */
+body.dark .right-track-bar:hover {
+  box-shadow: 0 8px 25px rgba(129, 140, 248, 0.5);
+}
+
+/* 3. Beri sedikit efek pada teks di dalamnya saat hover */
+.right-track-bar:hover span {
+  color: var(--primary);
+  transition: color 0.3s ease;
+}
+
+body.dark .right-track-bar {
+  background: rgba(255,255,255,0.1);
+}
+
+.right-track-bar span {
+  position: relative;
+  z-index: 2;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center; /* center teks */
+}
+
+/* Efek halus saat berpindah antar bagian */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Pilih semua ID yang jadi target menu navigasi kamu */
+#beranda, #tentang, #profil, #profil-mahasiswa, #pendidikan, #kontak {
+    /* Sesuaikan angkanya dengan tinggi header kamu + sedikit jarak tambahan */
+    scroll-margin-top: 80px; 
+}
